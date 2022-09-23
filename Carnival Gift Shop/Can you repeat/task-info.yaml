@@ -270,7 +270,13 @@ files:
     if __name__ == '__main__':
         CarnivalGiftShopTest('main').run_tests()
   learner_created: false
+- name: package.json
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/277/stages/1406/implement#comment
 check_profile: hyperskill_node_javascript
-status: Unchecked
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Fri, 23 Sep 2022 09:23:21 UTC
 record: -1

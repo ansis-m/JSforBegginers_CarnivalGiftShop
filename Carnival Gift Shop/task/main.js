@@ -1,15 +1,15 @@
-let gifts = [["Teddy Bear", 10],
-    ["Big Red Ball", 5],
-    ["Huge Bear", 50],
-    ["Candy", 8],
-    ["Stuffed Tiger", 15],
-    ["Stuffed Dragon", 30],
-    ["Skateboard", 100],
-    ["Toy Car", 25],
-    ["Basketball", 20],
-    ["Scary Mask", 75]];
+let gifts = [["Teddy Bear", 10, 1],
+    ["Big Red Ball", 5, 2],
+    ["Huge Bear", 50, 3],
+    ["Candy", 8, 4],
+    ["Stuffed Tiger", 15, 5],
+    ["Stuffed Dragon", 30, 6],
+    ["Skateboard", 100, 7],
+    ["Toy Car", 25, 8],
+    ["Basketball", 20, 9],
+    ["Scary Mask", 75, 10]];
 
-let tickets = 100;
+let tickets =0;
 
 
 function buyGift() {
@@ -22,8 +22,14 @@ function buyGift() {
         if (choice > 0 && choice < 11)
             break;
     }
-    console.log(`Here you go, one ${gifts[choice - 1][0]}!`)
-    console.log(`Total tickets: ${tickets - gifts[choice -1][1]}`)
+    let index = gifts.findIndex(e => e[2] === choice);
+    if (index > -1) {
+        tickets -= gifts[index][1];
+        console.log(`Here you go, one ${gifts[index][0]}!`);
+        console.log(`Total tickets: ${tickets}`);
+        gifts.splice(index, 1);
+    }
+
 }
 
 function addTickets() {
@@ -35,48 +41,54 @@ function addTickets() {
         if (choice > 0)
             break;
     }
-    console.log(`Total tickets: ${tickets + choice}`)
+    tickets += choice;
+    console.log(`Total tickets: ${tickets}`)
 }
 
 function checkTickets() {
-    console.log("Total tickets: 100");
+    console.log(`Total tickets: ${tickets}`);
 }
 
 function showGifts() {
     console.log("Here's the list of gifts:\n")
-    gifts.forEach(function (gift, order) {console.log(`${order + 1}- ${gift[0]}, Cost: ${gift[1]} tickets`)})
-
+    gifts.forEach(function (gift) {console.log(`${gift[2]}- ${gift[0]}, Cost: ${gift[1]} tickets`)})
+    return;
 }
 
 function main() {
     console.log("WELCOME TO THE CARNIVAL GIFT SHOP!")
     console.log("Hello friend! Thank you for visiting the carnival!")
     showGifts();
-    console.log("\nWhat do you want to do?");
-    console.log("1-Buy a gift 2-Add tickets 3-Check tickets 4-Show gifts");
 
     let choice = new Number();
     const input = require("sync-input");
-    while (true) {
-        choice = Number(input());
-        if (choice > 0 && choice < 5)
-            break;
+
+    while(true) {
+        console.log("\nWhat do you want to do?");
+        console.log("1-Buy a gift 2-Add tickets 3-Check tickets 4-Show gifts 5-Exit the shop");
+        while (true) {
+            choice = Number(input());
+            if (choice > 0 && choice < 6)
+                break;
+        }
+        switch (choice){
+            case (1):
+                buyGift();
+                break;
+            case(2):
+                addTickets();
+                break;
+            case (3):
+                checkTickets();
+                break;
+            case(4):1
+                showGifts();
+                break;
+            case(5):
+                console.log("Have a nice day!");
+                return;
+        }
     }
-    switch (choice){
-        case (1):
-            buyGift();
-            break;
-        case(2):
-            addTickets();
-            break;
-        case (3):
-            checkTickets();
-            break;
-        case(4):
-            showGifts();
-            break;
-    }
-    console.log("Have a nice day!");
 }
 
 main();
