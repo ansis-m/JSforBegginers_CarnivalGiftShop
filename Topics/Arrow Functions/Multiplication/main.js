@@ -1,0 +1,1 @@
+multiplication = (a, b) => a*b;
