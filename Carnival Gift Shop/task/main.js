@@ -27,11 +27,11 @@ function buyGift() {
     while (true) {
         choice = Number(input());
         index = gifts.findIndex(e => e[2] === choice);
-        if (choice > 0 && choice < 11 && index == -1)
+        if (choice > 0 && choice < 1000 && index == -1)
             console.log("There is no gift with that number!")
-        else if (choice > 0 && choice < 11 && gifts[index][1] > tickets)
+        else if (choice > 0 && choice < 1000 && index != -1 && gifts[index][1] > tickets)
             console.log("You don't have enough tickets to buy this gift.")
-        else if (choice > 0 && choice < 11 && index != -1)
+        else if (choice > 0 && choice < 1000 && index != -1)
             break;
         else
             console.log("Please enter a valid number!");
@@ -82,31 +82,35 @@ function main() {
     while(true) {
         console.log("\nWhat do you want to do?");
         console.log("1-Buy a gift 2-Add tickets 3-Check tickets 4-Show gifts 5-Exit the shop");
-        while (true) {
+        let c = true;
+        while (c) {
             choice = Number(input());
-            if (choice > 0 && choice < 6)
-                break;
+            switch (choice){
+                case (1):
+                    buyGift();
+                    c = false;
+                    break;
+                case(2):
+                    addTickets();
+                    c = false;
+                    break;
+                case (3):
+                    checkTickets();
+                    c = false;
+                    break;
+                case(4):
+                    showGifts();
+                    c = false;
+                    break;
+                case(5):
+                    console.log("Have a nice day!");
+                    return;
+                default:
+                    console.log("Please enter a valid number!");
+                    break;
+            }
         }
-        switch (choice){
-            case (1):
-                buyGift();
-                break;
-            case(2):
-                addTickets();
-                break;
-            case (3):
-                checkTickets();
-                break;
-            case(4):
-                showGifts();
-                break;
-            case(5):
-                console.log("Have a nice day!");
-                return;
-            default:
-                console.log("Please enter a valid number!");
-                break;
-        }
+
     }
 }
 
