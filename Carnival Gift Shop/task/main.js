@@ -13,16 +13,30 @@ let tickets =0;
 
 
 function buyGift() {
-    console.log("Enter the number of the gift you want to get:")
+
+
+    if (gifts.length == 0){
+        console.log("Wow! There are no gifts to buy.");
+        return;
+    }
+    console.log("Enter the number of the gift you want to get:");
 
     let choice = new Number();
+    let index = new Number();
     const input = require("sync-input");
     while (true) {
         choice = Number(input());
-        if (choice > 0 && choice < 11)
+        index = gifts.findIndex(e => e[2] === choice);
+        if (choice > 0 && choice < 11 && index == -1)
+            console.log("There is no gift with that number!")
+        else if (choice > 0 && choice < 11 && gifts[index][1] > tickets)
+            console.log("You don't have enough tickets to buy this gift.")
+        else if (choice > 0 && choice < 11 && index != -1)
             break;
+        else
+            console.log("Please enter a valid number!");
     }
-    let index = gifts.findIndex(e => e[2] === choice);
+
     if (index > -1) {
         tickets -= gifts[index][1];
         console.log(`Here you go, one ${gifts[index][0]}!`);
@@ -38,8 +52,10 @@ function addTickets() {
     const input = require("sync-input");
     while (true) {
         choice = Number(input());
-        if (choice > 0)
+        if (choice >= 0 && choice <= 1000)
             break;
+        else
+            console.log("Please enter a valid number between 0 and 1000.")
     }
     tickets += choice;
     console.log(`Total tickets: ${tickets}`)
@@ -81,12 +97,15 @@ function main() {
             case (3):
                 checkTickets();
                 break;
-            case(4):1
+            case(4):
                 showGifts();
                 break;
             case(5):
                 console.log("Have a nice day!");
                 return;
+            default:
+                console.log("Please enter a valid number!");
+                break;
         }
     }
 }
